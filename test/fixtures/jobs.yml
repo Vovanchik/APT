@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  author_id: 1
+  forum_id: 1
+  job_number: 1
+  description: MyString
+  status: MyString
+
+two:
+  author_id: 1
+  forum_id: 1
+  job_number: 1
+  description: MyString
+  status: MyString
