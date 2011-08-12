@@ -11,7 +11,7 @@
 
 <% @forums.each do |forum| %>
   <tr>
-    <td><%= forum.name %></td>
+    <td><%= link_to forum.name, forum_path(forum) %></td>
     <td><%= forum.author_id %></td>
     <td><%= link_to 'Show', forum %></td>
     <td><%= link_to 'Edit', edit_forum_path(forum) %></td>

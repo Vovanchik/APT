@@ -9,7 +9,29 @@
   <b>Author:</b>
   <%= @forum.author_id %>
 </p>
+<table>
+  <tr>
+    <th>Author</th>
+    <th>Job number</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
 
+<% @jobs.each do |job| %>
+  <tr>
+    <td><%= job.author.nick %></td>
+    <td><%= job.job_number %></td>
+    <td><%= job.description %></td>
+    <td><%= job.status %></td>
+    <td><%= link_to 'Show', forum_job_path(@forum,job) %></td>
+    <td><%= link_to 'Edit', edit_forum_job_path(@forum,job) %></td>
+    <td><%= link_to 'Destroy', forum_job_path(@forum,job), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
 
-<%= link_to 'Edit', edit_forum_path(@forum) %> |
+<%= link_to 'New action point', new_forum_job_path(@forum) %>
 <%= link_to 'Back', forums_path %>

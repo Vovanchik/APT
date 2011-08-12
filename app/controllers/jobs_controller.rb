@@ -1,8 +1,9 @@
 class JobsController < ApplicationController
+  before_filter :get_forum
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = Job.all
+    @jobs = @forum.jobs
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,10 +42,11 @@ class JobsController < ApplicationController
   # POST /jobs.xml
   def create
     @job = Job.new(params[:job])
+    @job.forum = @forum
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
+        format.html { redirect_to (forum_path(@forum) )}
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
         format.html { render :action => "new" }
@@ -60,7 +62,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+        format.html { redirect_to (forum_path(@forum) )}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -1,6 +1,11 @@
 APT::Application.routes.draw do
   resources :forums, :jobs, :users
 
+
+  resources :forums do
+    resources :jobs
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
