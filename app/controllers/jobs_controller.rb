@@ -36,6 +36,7 @@ class JobsController < ApplicationController
   # GET /jobs/1/edit
   def edit
     @job = Job.find(params[:id])
+    @handlers = @job.handlers.map{|handler| handler.nick}
   end
 
   # POST /jobs
@@ -43,6 +44,12 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(params[:job])
     @job.forum = @forum
+    
+    new_handlers =find_received_users(params[:handlers].split(" ").uniq)
+
+    new_handlers.each do |handler|
+        @job.handlers << handler
+    end
 
     respond_to do |format|
       if @job.save
@@ -60,6 +67,19 @@ class JobsController < ApplicationController
   def update
     @job = Job.find(params[:id])
 
+    new_handlers =find_received_users(params[:handlers].split(" ").uniq)
+
+    handlers_to_add =new_handlers - @job.handlers
+    handlers_to_delete = @job.handlers - new_handlers
+
+    handlers_to_add.each do |handler|
+        @job.handlers << handler
+    end
+
+    handlers_to_delete.each do |handler|
+      @job.handlers.delete(handler)
+    end
+    
     respond_to do |format|
       if @job.update_attributes(params[:job])
         format.html { redirect_to (forum_path(@forum) )}

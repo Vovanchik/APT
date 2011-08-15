@@ -1,6 +1,8 @@
 <h1>Editing job</h1>
 
-<%= render 'form' %>
+<%= form_for(@job, :url => forum_job_path(@forum)) do |f| %>
+  <%= render :partial => "form", :locals => {:f => f} %>
+<%end%>
 
 <%= link_to 'Show', forum_job_path(@forum) %> |
 <%= link_to 'Back', forum_path(@forum) %>
