@@ -1,10 +1,14 @@
 APT::Application.routes.draw do
-  resources :forums, :jobs, :users
+  resources :roles
 
+  resources :forums, :jobs, :users, :user_sessions
 
   resources :forums do
     resources :jobs
   end
+
+  match 'login' => 'user_sessions#new',       :as => :login
+  match 'logout' => 'user_sessions#destroy',  :as => :logout
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -55,7 +59,7 @@ APT::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "forums#index"
+  root :to => "user_sessions#new"
 
   # See how all your routes lay out with "rake routes"
 

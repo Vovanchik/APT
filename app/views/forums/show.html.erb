@@ -1,12 +1,14 @@
 <body style=" background-color: antiquewhite ">
 
-<% flash.each do |type, messages| %>
-  <%  messages.each do |message|%>
-    <div id="<%= type %>">
-      <p><%= message%></p>
-    </div>
+  <div >
+  <% flash.each do |type, messages| %>
+    <%  messages.each do |message|%>
+      <div id="<%= type %>">
+        <p><%= message%></p>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 
 <p>
   <b>Name:</b>

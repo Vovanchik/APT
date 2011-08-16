@@ -45,7 +45,8 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.save
-        format.html { redirect_to(@forum, :notice => 'Forum was successfully created.') }
+        flash_message :notice, "Forum #{@forum.name} was successfully created."
+        format.html { redirect_to forums_path}
         format.xml  { render :xml => @forum, :status => :created, :location => @forum }
       else
         format.html { render :action => "new" }
@@ -61,7 +62,7 @@ class ForumsController < ApplicationController
 
     respond_to do |format|
       if @forum.update_attributes(params[:forum])
-        format.html { redirect_to(@forum, :notice => 'Forum was successfully updated.') }
+        format.html { redirect_to(forums_path, :notice => 'Forum was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
