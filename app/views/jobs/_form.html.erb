@@ -1,4 +1,3 @@
-<%= form_for(@job, :url => forum_jobs_path(@forum)) do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
@@ -27,7 +26,12 @@
     <%= f.label :status %><br />
     <%= f.text_field :status %>
   </div>
+
+  <div class="field">
+    <%= label_tag 'Handlers' %><br />
+    <%= text_field_tag name='handlers', value = @handlers %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
-<% end %>

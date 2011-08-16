@@ -1,5 +1,16 @@
+<<<<<<< HEAD:app/views/forums/show.html.erb
 <body style=" background-color: antiquewhite ">
 <p id="notice"><%= notice %></p>
+=======
+<% flash.each do |type, messages| %>
+  <%  messages.each do |message|%>
+    <div id="<%= type %>">
+      <p><%= message%></p>
+    </div>
+  <% end %>
+<% end %>
+
+>>>>>>> f4fe0e6cdc66fed0e11b713c539739230f8bcdc3:app/views/forums/show.html.erb
 
 <p>
   <b>Name:</b>
@@ -22,6 +33,7 @@
     <th>Job number</th>
     <th>Description</th>
     <th>Status</th>
+    <th>Handlers</th>
   </tr>
 
 <% @jobs.each do |job| %>
@@ -31,9 +43,11 @@
     <td><%= job.job_number %></td>
     <td><%= job.description %></td>
     <td><%= job.status %></td>
-    
-    
-    
+    <td>
+    <%job.handlers. each do |handler|%>
+      <%=handler.nick%>
+    <%end %>
+    </td>
   </tr>
 <% end %>
 </table>
