@@ -1,7 +1,6 @@
-<<<<<<< HEAD:app/views/forums/show.html.erb
 <body style=" background-color: antiquewhite ">
 <p id="notice"><%= notice %></p>
-=======
+
 <% flash.each do |type, messages| %>
   <%  messages.each do |message|%>
     <div id="<%= type %>">
@@ -9,8 +8,6 @@
     </div>
   <% end %>
 <% end %>
-
->>>>>>> f4fe0e6cdc66fed0e11b713c539739230f8bcdc3:app/views/forums/show.html.erb
 
 <p>
   <b>Name:</b>
@@ -29,25 +26,28 @@
 <table border="1" frame="box" cellspacing="1" width="" >
   <tr style=" background-color: burlywood " >
     <th>AP # </th>
+    <th>Description</th>
+    <th>Handlers</th>
     <th>Author</th>
     <th>Job number</th>
-    <th>Description</th>
     <th>Status</th>
-    <th>Handlers</th>
   </tr>
 
 <% @jobs.each do |job| %>
   <tr style="background-color: lightgrey ">
     <td><%= link_to job.id , forum_job_path(@forum,job) %></td>
-    <td><%= job.author.nick %></td>
-    <td><%= job.job_number %></td>
     <td><%= job.description %></td>
-    <td><%= job.status %></td>
     <td>
     <%job.handlers. each do |handler|%>
       <%=handler.nick%>
     <%end %>
-    </td>
+    </td> 
+    <td><%= job.author.nick %></td>
+    <td><%= job.job_number %></td>
+
+    <td><%= job.status %></td>
+
+
   </tr>
 <% end %>
 </table>
