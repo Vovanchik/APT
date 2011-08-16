@@ -1,3 +1,4 @@
+<body style=" background-color: antiquewhite ">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -13,8 +14,9 @@
 <p>
   <b>Action Points:</b>
 </p>
-<table border="1" frame="box" cellspacing="1" >
-  <tr>
+
+<table border="1" frame="box" cellspacing="1" width="" >
+  <tr style=" background-color: burlywood " >
     <th>AP # </th>
     <th>Author</th>
     <th>Job number</th>
@@ -23,7 +25,7 @@
   </tr>
 
 <% @jobs.each do |job| %>
-  <tr>
+  <tr style="background-color: lightgrey ">
     <td><%= link_to job.id , forum_job_path(@forum,job) %></td>
     <td><%= job.author.nick %></td>
     <td><%= job.job_number %></td>
@@ -36,5 +38,15 @@
 <% end %>
 </table>
 
-<%= link_to 'New action point', new_forum_job_path(@forum) %>
-<%= link_to 'Back', forums_path %>
+&nbsp;
+
+<table>
+  <tr>
+   <td><%= button_to('New action point' , new_forum_job_path(@forum), :method => :get) %> </td>
+  </tr>
+  <tr>
+   <td><%= link_to "Back", forums_path, :method => :get %></td>
+  </tr>
+</table>
+
+</body>

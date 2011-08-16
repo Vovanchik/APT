@@ -1,16 +1,18 @@
-<h1>Listing forums</h1>
 
-<table>
-  <tr>
+<div >
+</div>
+<body style="background-color: antiquewhite ">
+<h1>Forums</h1>
+
+<table border="1" frame="box" cellspacing="1"  style=" background-color: burlywood ">
+  <tr style=" background-color: burlywood " >
     <th>Name</th>
     <th>Author</th>
-    <th></th>
-    <th></th>
-    <th></th>
+
   </tr>
 
 <% @forums.each do |forum| %>
-  <tr>
+  <tr  style="background-color: lightgrey" >
     <td><%= link_to forum.name, forum_path(forum) %></td>
     <td><%= forum.author_id %></td>
     <td><%= link_to 'Show', forum %></td>
@@ -22,4 +24,5 @@
 
 <br />
 
-<%= link_to 'New Forum', new_forum_path %>
+<%= button_to 'New Forum', new_forum_path, :method => :get %>
+</body>
