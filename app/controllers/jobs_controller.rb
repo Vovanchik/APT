@@ -53,6 +53,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
+        flash_message :notice, "Job #{@job.id} successfuly created"
         format.html { redirect_to (forum_path(@forum) )}
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
