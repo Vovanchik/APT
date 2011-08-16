@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_authorization_check :only => [:new, :create]
+  load_and_authorize_resource
 
   # GET /users
   # GET /users.xml
@@ -44,6 +46,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    @user.role = Role.find_by_name(:guest)
     respond_to do |format|
       if @user.save
         format.html { redirect_to(forums_path, :notice => 'User was successfully created.') }
@@ -59,7 +62,7 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
-    @user.role = Role.find_by_name (params[:role])
+    @user.role = Role.find_by_name(params[:role]) if !params[:role].nil?
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

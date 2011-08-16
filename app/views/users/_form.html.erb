@@ -35,6 +35,14 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
   </div>
+
+  <% if can? :assign_roles, @role %>
+    <div class="field">
+      <%= label_tag :role %><br />
+      <%= text_field_tag name='role', value = @role.name %>
+    </div>
+  <%end%>
+
   <div class="actions">
     <%= f.submit %>
   </div>

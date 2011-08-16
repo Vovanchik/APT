@@ -10,9 +10,12 @@
 
 <div id="nav">
   <% if current_user %>
-    <%=  "Signed in as #{current_user.nick}. Not you?" %>
+    <%=  "Signed in as #{current_user.nick}." %>
     <%= link_to "Edit Profile", edit_user_path(current_user.id)%>
     <%= link_to "Logout", :logout %>
+    <%if current_user.role? :super_user%>
+      <%= link_to "Users", users_path%>
+    <%end%>
   <% else %>
     <%= link_to "Register", new_user_path%>
   <% end %>
