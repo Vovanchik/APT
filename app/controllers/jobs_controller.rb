@@ -44,6 +44,8 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(params[:job])
     @job.forum = @forum
+
+    @job.author = current_user
     
     new_handlers =find_received_users(params[:handlers].split(" ").uniq)
 

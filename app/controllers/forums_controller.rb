@@ -42,6 +42,7 @@ class ForumsController < ApplicationController
   # POST /forums.xml
   def create
     @forum = Forum.new(params[:forum])
+    @forum.author = current_user
 
     respond_to do |format|
       if @forum.save

@@ -2,7 +2,7 @@
 <h1>Forums:</h1>
 
 <table class="actionpoints">
-  <tr style=" background-color: burlywood " >
+ <tr>
     <th>Name</th>
     <th>Author</th>
     <th></th>
@@ -15,7 +15,7 @@
     <td><%= link_to forum.name, forum_path(forum) %></td>
     
      <td>
-    <%= forum.author_id %></td>
+    <%= forum.author.nick %></td>
     <td><%= link_to 'Show', forum %></td>
     <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
     <td><%= link_to 'Destroy', forum, :confirm => 'Are you sure?', :method => :delete %></td>
