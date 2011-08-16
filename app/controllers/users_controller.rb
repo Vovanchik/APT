@@ -26,7 +26,8 @@ class UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
-
+    @role = Role.find_by_name (:guest)
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @user }
@@ -36,13 +37,13 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @role = @user.role
   end
 
   # POST /users
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-    
     respond_to do |format|
       if @user.save
         format.html { redirect_to(forums_path, :notice => 'User was successfully created.') }
@@ -58,6 +59,7 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
+    @user.role = Role.find_by_name (params[:role])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
