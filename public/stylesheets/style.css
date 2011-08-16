@@ -1,0 +1,50 @@
+/* 
+    Document   : style
+    Created on : Aug 16, 2011, 10:44:35 AM
+    Author     : xaku
+    Description:
+        Purpose of the stylesheet follows.
+*/
+root { 
+    display: block;
+}
+
+body {
+        background-color:antiquewhite;
+
+}
+
+body h1{
+        text-align: center;
+}
+
+table.actionpoints {
+        margin-right: auto;
+        width: 1000px;
+        font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.actionpoints th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: burlywood;
+}
+table.actionpoints td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
+
+table.controls {
+        margin-left: auto;
+}
+

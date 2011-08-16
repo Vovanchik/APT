@@ -1,6 +1,5 @@
 <h1>Listing users</h1>
-
-<table>
+<table class="actionpoints">
   <tr>
     <th>Nick</th>
     <th>Name</th>
@@ -24,4 +23,4 @@
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%= button_to 'New User', new_user_path, :method => :get %>
