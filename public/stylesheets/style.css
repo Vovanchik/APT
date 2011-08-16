@@ -20,6 +20,7 @@ body h1{
 
 table.actionpoints {
         margin-right: auto;
+        margin-left: auto;
         width: 1000px;
         font-family: verdana,arial,sans-serif;
 	font-size:11px;
