@@ -1,20 +1,21 @@
+<body>
+<h1>Forums:</h1>
 
-<div>
-</div>
-<body style="background-color: antiquewhite ">
-<h1>Forums</h1>
-
-<table border="1" frame="box" cellspacing="1"  style=" background-color: burlywood ">
+<table class="actionpoints">
   <tr style=" background-color: burlywood " >
     <th>Name</th>
     <th>Author</th>
-
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
 <% @forums.each do |forum| %>
-  <tr  style="background-color: lightgrey" >
+  <tr>
     <td><%= link_to forum.name, forum_path(forum) %></td>
-    <td><%= forum.author_id %></td>
+    
+     <td>
+    <%= forum.author_id %></td>
     <td><%= link_to 'Show', forum %></td>
     <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
     <td><%= link_to 'Destroy', forum, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -23,6 +24,6 @@
 </table>
 
 <br />
-
-<%= button_to 'New Forum', new_forum_path, :method => :get %>
+<table class="controls">
+  <td><%= button_to 'New Forum', new_forum_path, :method => :get %></td>
 </body>
