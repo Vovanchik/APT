@@ -16,5 +16,9 @@ class User < ActiveRecord::Base
       return self.role.name == role.to_s
     end
   end
+
+  def admin?
+    return self.nick == 'admin'
+  end
   
 end

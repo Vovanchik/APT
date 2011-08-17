@@ -5,20 +5,21 @@
     <th>Name</th>
     <th>Surname</th>
     <th>Authorities</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Actions</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.nick %></td>
+    <td><%= user.nick%></td>
     <td><%= user.name %></td>
     <td><%= user.surname %></td>
     <td><%= user.role.name %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="controls">
+      <%= link_to image_tag("/images/button_edit.png"), edit_user_path(user) %>
+      <%if !user.admin?%>
+        <%= link_to image_tag("/images/button_delete.png"), user, :method => :delete, :confirm => 'Are you sure?'%>
+      <%end%>
+    </td>
   </tr>
 <% end %>
 </table>

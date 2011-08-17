@@ -38,8 +38,10 @@
 
   <% if can? :assign_roles, @role %>
     <div class="field">
-      <%= label_tag :role %><br />
-      <%= text_field_tag name='role', value = @role.name %>
+      <% Role.find(:all).each do |role|  %>
+        <%= radio_button_tag "user[role_id]", role.id, @user.role?(role.name)%>
+        <%= h role.name.camelize %>
+      <% end %>
     </div>
   <%end%>
 
@@ -47,3 +49,10 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%if can? :manage, @user%>
+  <%= button_to "Back", users_path, :method => :get %>
+<%end%>
+<%if can? :update, @user%>
+  <%= button_to "Back", forums_path, :method => :get %>
+<%end%>
