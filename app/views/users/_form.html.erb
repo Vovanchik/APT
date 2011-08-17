@@ -50,9 +50,15 @@
   </div>
 <% end %>
 
-<%if can? :manage, @user%>
-  <%= button_to "Back", users_path, :method => :get %>
+<%if current_user%>
+  <%if (can? :update, @user) && (current_user.admin?)%>
+    <%= button_to "Back", users_path, :method => :get %>
+  <%end%>
+
+  <%if ((can? :update , @user) & (!current_user.admin?)) %>
+    <%= button_to "Back", forums_path, :method => :get %>
+  <%end%>
 <%end%>
-<%if can? :update, @user%>
-  <%= button_to "Back", forums_path, :method => :get %>
+<%if current_user.nil?%>
+  <%= button_to "Login", :login, :method => :get %>
 <%end%>
