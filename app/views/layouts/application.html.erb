@@ -7,21 +7,48 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+<% if current_user %>
 
-<div id="nav">
-  <% if current_user %>
-    <%=  "Signed in as #{current_user.nick}." %>
-    <%= link_to "Edit Profile", edit_user_path(current_user.id)%>
-    <%= link_to "Logout", :logout %>
+<div id="slantedmenu">
+ <ul>
+  <li><%= link_to'New AP' , jobs_path%></li>
+  <li><%= link_to'My AP', current_user%></li>
+  <li><%= link_to'Free AP', current_user%></li>
+  <li><%= link_to'Private AP', current_user%></li>
+  <li><%= link_to'New Forum', new_forum_path%></li>
+  <li><%= link_to'My Forums', forums_path%></li>
     <%if current_user.role? :super_user%>
-      <%= link_to "Users", users_path%>
+  <li> <%= link_to "Users", users_path%></li>
     <%end%>
-  <% else %>
-    <%= link_to "Register", new_user_path%>
-  <% end %>
+ </ul>
 </div>
+  
+  <table class="tablelogin">
 
+    <tr>
+      <th>
+        <%if current_user.role? :super_user%>
+          <%=  "Greetings Master" %>
+        <%else%>
+          <%=  "Hello #{current_user.name}." %>
+        <%end%>
+      </th>
+    </tr>
+    <tr>
+      <td>
+       <%= link_to "Edit Profile", edit_user_path(current_user.id)%>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <%= button_to "Logout", :logout %>
+      </td>
+    </tr>
 
+  </table>
+
+  
+<% end %>
 
 <%= yield %>
 

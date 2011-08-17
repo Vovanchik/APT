@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+
   before_filter :get_forum
   # GET /jobs
   # GET /jobs.xml

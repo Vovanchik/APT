@@ -1,13 +1,11 @@
 <body>
 <h1>Forums:</h1>
 
-<table class="actionpoints">
+<table class="apttable">
  <tr>
     <th>Forums</th>
     <%if can? :add_handlers_to_forum, @forum%>
-      <th>Actions</th>
-      <th></th>
-      <th></th>
+    <th colspan="3" > Actions </th>
     <%end%>
   </tr>
 
