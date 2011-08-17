@@ -18,10 +18,10 @@ body h1{
         text-align: center;
 }
 
-table.actionpoints {
+table.apttable {
         margin-right: auto;
         margin-left: auto;
-        width: 1000px;
+        width: 100% ;
         font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;
@@ -29,14 +29,14 @@ table.actionpoints {
 	border-color: #666666;
 	border-collapse: collapse;
 }
-table.actionpoints th {
+table.apttable th {
 	border-width: 1px;
 	padding: 8px;
 	border-style: solid;
 	border-color: #666666;
 	background-color: burlywood;
 }
-table.actionpoints td {
+table.apttable td {
 	border-width: 1px;
 	padding: 8px;
 	border-style: solid;
@@ -51,4 +51,16 @@ table.controls {
 
 a img{
     border:0;
+}
+
+table.tablelogin {
+        margin-left: auto;
+        width: auto ;
+        font-family: verdana,arial,sans-serif;
+	font-size:11px;
+}
+table.tablelogin th {
+	font-family: verdana,arial,sans-serif;
+	font-size:14px;
+
 }
