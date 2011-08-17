@@ -3,27 +3,32 @@
 
 <table class="actionpoints">
  <tr>
-    <th>Name</th>
-    <th>Author</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Forums</th>
+    <%if can? :add_handlers_to_forum, @forum%>
+      <th>Actions</th>
+      <th></th>
+      <th></th>
+    <%end%>
   </tr>
 
 <% @forums.each do |forum| %>
   <tr>
-    <td><%= link_to forum.name, forum_path(forum) %></td>
-    
-     <td>
-    <%= forum.author.nick %></td>
-    <td><%= link_to 'Show', forum %></td>
-    <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
-    <td><%= link_to 'Destroy', forum, :confirm => 'Are you sure?', :method => :delete %></td>
+    <%if cannot? :add_handlers_to_forum, forum%>
+      <td><%= link_to forum.name, forum_path(forum) %></td>
+    <%end%>
+    <%if can? :add_handlers_to_forum, forum%>
+      <td><%= forum.name%></td>
+      <td><%= link_to 'Users list', forum %></td>
+      <td><%= link_to 'Edit forum details', edit_forum_path(forum) %></td>
+      <td><%= link_to 'Remove forum', forum, :confirm => 'Are you sure?', :method => :delete %></td>
+    <%end%>
   </tr>
 <% end %>
 </table>
-
-<br />
-<table class="controls">
-  <td><%= button_to 'New Forum', new_forum_path, :method => :get %></td>
+<%if can? :add_handlers_to_forum, @forum%>
+  <br/>
+  <table class="controls">
+    <td><%= button_to 'New Forum', new_forum_path, :method => :get %></td>
+  </table>
+<%end%>  
 </body>

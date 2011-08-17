@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110816140457) do
+ActiveRecord::Schema.define(:version => 20110817142000) do
+
+  create_table "conclusions", :force => true do |t|
+    t.integer  "job_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "forums", :force => true do |t|
     t.string   "name"
@@ -32,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20110816140457) do
     t.string   "status",      :default => "not_started"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "due_date"
+    t.time     "due_time"
   end
 
   create_table "jobs_handlers", :id => false, :force => true do |t|

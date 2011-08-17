@@ -1,0 +1,66 @@
+<body>
+
+  <div >
+  <% flash.each do |type, messages| %>
+    <%  messages.each do |message|%>
+      <div id="<%= type %>">
+        <p><%= message%></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<p>
+  <b>Name:</b>
+  <%= @forum.name %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%= @forum.author.nick %>
+</p>
+
+<p>
+  <b>Action Points:</b>
+</p>
+
+<table class="actionpoints" >
+  <tr>
+    <th>AP # </th>
+    <th>Description</th>
+    <th>Handlers</th>
+    <th>Date/time</th>
+    <th>Status</th>
+    <th>Author</th>
+    <th>Conclusion</th>
+  </tr>
+
+<% @jobs.each do |job| %>
+  <tr>
+    <td><%= link_to job.id , forum_job_path(@forum,job) %></td>
+    <td><%= job.description %></td>
+    <td>
+    <%job.handlers. each do |handler|%>
+      <%=handler.nick%>
+    <%end %>
+    </td>
+    <td><%=job.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+    <td><%= job.status %></td>
+    <td><%= job.author.nick %></td>
+    <td><%= job.conclusions.sort{ |a,b| b.created_at <=> a.created_at}.first.description %></td>
+  </tr>
+<% end %>
+</table>
+
+&nbsp;
+
+<table class="controls">
+ <tr>
+   <td><%= button_to('New action point' , new_forum_job_path(@forum), :method => :get) %> </td>
+ </tr>
+ <tr>
+   <td><%= link_to "Back", forums_path, :method => :get %></td>
+ </tr>
+</table>
+
+</body>

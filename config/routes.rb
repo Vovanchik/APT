@@ -1,4 +1,6 @@
 APT::Application.routes.draw do
+  resources :conclusions
+
   resources :roles
 
   resources :forums, :jobs, :users, :user_sessions

@@ -1,0 +1,45 @@
+<body>
+
+  <div >
+  <% flash.each do |type, messages| %>
+    <%  messages.each do |message|%>
+      <div id="<%= type %>">
+        <p><%= message%></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<p>
+  <b>Name:</b>
+  <%= @forum.name %>
+</p>
+<table class="actionpoints" >
+  <tr>
+    <th>#</th>
+    <th>Corporate ID</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Authorities</th>
+  </tr>
+
+<% @forum.users.each do |user| %>
+  <tr>
+    <%count = 0%>
+    <td><%=count +=1  %></td>
+    <td><%=user.nick %></td>
+    <td><%=user.name %></td>
+    <td><%=user.surname %></td>
+    <td><%=user.role.name %></td>
+  </tr>
+<% end %>
+</table>
+
+&nbsp;
+<table>
+ <tr>
+   <td><%= link_to "Back", forums_path, :method => :get %></td>
+ </tr>
+</table>
+
+</body>

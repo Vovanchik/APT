@@ -43,9 +43,8 @@ class JobsController < ApplicationController
   # POST /jobs.xml
   def create
     @job = Job.new(params[:job])
-    @job.forum = @forum
-
     @job.author = current_user
+    @job.status = :opened
     
     new_handlers =find_received_users(params[:handlers].split(" ").uniq)
 
@@ -81,6 +80,12 @@ class JobsController < ApplicationController
 
     handlers_to_delete.each do |handler|
       @job.handlers.delete(handler)
+    end
+
+    if !params[:conclusion].empty?
+      conclusion = Conclusion.new()
+      conclusion.description = current_user.nick + "\/"+ Time.now().strftime("%d.%m.%Y %H:%M") + ": " + params[:conclusion].to_s
+      @job.conclusions << conclusion
     end
     
     respond_to do |format|

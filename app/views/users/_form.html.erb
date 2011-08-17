@@ -59,6 +59,7 @@
     <%= button_to "Back", forums_path, :method => :get %>
   <%end%>
 <%end%>
+
 <%if current_user.nil?%>
   <%= button_to "Login", :login, :method => :get %>
 <%end%>

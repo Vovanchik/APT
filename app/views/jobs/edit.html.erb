@@ -1,8 +1,67 @@
-<h1>Editing job</h1>
+<h2>Update AP on <%= @forum.name %></h2>
 
 <%= form_for(@job, :url => forum_job_path(@forum)) do |f| %>
-  <%= render :partial => "form", :locals => {:f => f} %>
+    <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+      <% @job.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'AP #' + @job.id.to_s%><br />
+  </div>
+
+  <div class="field">
+    <%= label_tag :handlers %><br />
+    <%= text_field_tag name='handlers', value = @handlers %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.select :status, job_states %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+
+  <table class="field">
+    <td>
+      <%= f.label :due_date %><br />
+      <%= f.date_select :due_date %>
+    </td>
+    <td>
+      <%= f.label :due_time %><br />
+      <%= f.time_select :due_time %>
+    </td>
+  </table>
+
+  <div class="field">
+    <%= label_tag :conclusion %><br />
+    <%= text_area_tag name='conclusion' %>
+  </div>
+
+  <table>
+    <%@job.conclusions.sort{ |a,b| b.created_at <=> a.created_at }.each do |conclusion|%>
+        <tr>
+          <td><%= conclusion.description %></td>
+        </tr>
+    <%end%>
+  </table>
+   <br/>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <%end%>
+
 
 <%= link_to 'Show', forum_job_path(@forum) %> |
 <%= link_to 'Back', forum_path(@forum) %>

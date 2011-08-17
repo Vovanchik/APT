@@ -1,18 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b>AP #</b>
+  <%= @job.id %>
+</p>
+
+<p>
   <b>Author:</b>
-  <%= @job.author_id %>
+  <%= @job.author.nick %>
 </p>
 
 <p>
-  <b>Forum:</b>
-  <%= @job.forum_id %>
+  <b>Handlers:</b>
+  <%@job.handlers.map{|h| h.nick}.each do |handler| %>
+    <%=  handler %>
+  <%end%>
 </p>
 
 <p>
-  <b>Job number:</b>
-  <%= @job.job_number %>
+  <b>Status:</b>
+  <%= @job.status %>
 </p>
 
 <p>
@@ -21,9 +28,20 @@
 </p>
 
 <p>
-  <b>Status:</b>
-  <%= @job.status %>
+  <b>Due date and time:</b>
+  <%= @job.due_date.strftime("%d.%m.%Y") %>&nbsp;<%= @job.due_time.strftime("%H:%M") %>
 </p>
+
+
+<b>History:</b>
+<table>
+  <%@job.conclusions.sort{ |a,b| b.created_at <=> a.created_at }.each do |conclusion|%>
+    <tr>
+      <td><%= conclusion.description %></td>
+    </tr>
+  <%end%>
+</table>
+
 
 
 <%= link_to 'Edit', edit_forum_job_path(@forum) %> |

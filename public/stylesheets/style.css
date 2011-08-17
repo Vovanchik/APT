@@ -18,6 +18,9 @@ body h1{
         text-align: center;
 }
 
+body h2{
+        text-align: left;
+}
 table.actionpoints {
         margin-right: auto;
         margin-left: auto;

@@ -6,11 +6,14 @@ class Ability
 
     if user.role? :super_user
       can :assign_roles
+      can :add_users_to_forum
       can :manage, :all
     elsif user.role? :user
       can :update, User do |resource|
         resource == user
       end
+      can :read, Forum
+      cannot :add_users_to_forum
     end
   end
 end

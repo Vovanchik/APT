@@ -1,0 +1,2 @@
+module ConclusionsHelper
+end

@@ -1,4 +1,6 @@
 class ForumsController < ApplicationController
+  load_and_authorize_resource
+
   # GET /forums
   # GET /forums.xml
   def index
@@ -36,6 +38,7 @@ class ForumsController < ApplicationController
   # GET /forums/1/edit
   def edit
     @forum = Forum.find(params[:id])
+    @users = @forum.users.map{|user| user.nick}
   end
 
   # POST /forums
@@ -44,6 +47,12 @@ class ForumsController < ApplicationController
     @forum = Forum.new(params[:forum])
     @forum.author = current_user
 
+    new_users =find_received_users(params[:users].split(" ").uniq)
+
+    new_users.each do |user|
+        @forum.users << user
+    end
+    
     respond_to do |format|
       if @forum.save
         flash_message :notice, "Forum #{@forum.name} was successfully created."
@@ -60,6 +69,19 @@ class ForumsController < ApplicationController
   # PUT /forums/1.xml
   def update
     @forum = Forum.find(params[:id])
+
+    new_users =find_received_users(params[:users].split(" ").uniq)
+
+    users_to_add =new_users - @forum.users
+    users_to_delete = @forum.users - new_users
+
+    users_to_add.each do |user|
+      @forum.users << user
+    end
+
+    users_to_delete.each do |user|
+      @forum.users.delete(user)
+    end
 
     respond_to do |format|
       if @forum.update_attributes(params[:forum])

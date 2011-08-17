@@ -40,6 +40,4 @@ class ApplicationController < ActionController::Base
     return found_users
   end
 
-
-
 end
