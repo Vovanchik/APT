@@ -30,13 +30,13 @@
   <li><%= link_to'New Forum', new_forum_path%></li>
   <%end%>
   <%if can? :update,@users%>
-  <li><%= link_to'Users', users_path%></li>
   <li><%= link_to'Add User', new_user_path%></li>
+  <li><%= link_to'Users', users_path%></li>
   <%end%>
-  <li><%= link_to'New AP' , new_job_path%></li>
-  <li><%= link_to'Asigned AP', jobs_path%></li>
+  <li><%= link_to'My AP', jobs_path%></li>
   <li><%= link_to'Free AP', @forum_free%></li>
   <li><%= link_to'Private AP', @forum_private%></li>
+  <li><%= link_to'New AP' , new_job_path%></li>
   <li><%= link_to'Forums', forums_path%></li>
 
  </ul>

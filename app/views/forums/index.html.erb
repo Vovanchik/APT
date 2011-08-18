@@ -2,13 +2,16 @@
 <h1>Forums:</h1>
 
 <table class="apttable">
- <tr>
+
+  <tr>
     
     <%if can? :add_handlers_to_forum, @forum%>
    <th>Forums</th>
    <th colspan="3" > Actions </th>
    <%else%>
-   <th colspan="2" ></th>
+
+   <th id="col1" >№</th>
+   <th>Forum Name</th>
     <%end%>
   </tr>
  <%counter = 0%>

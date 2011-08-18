@@ -19,6 +19,10 @@ body h1{
         text-align: center;
 }
 
+#col1 {
+    width: 2%;
+}
+
 table.apttable {
         text-align: left;
         margin-right: auto;
