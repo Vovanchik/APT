@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  skip_authorization_check :only => [:new, :create]
   load_and_authorize_resource :only => [:index, :show, :edit, :update, :destroy]
-
+  skip_authorization_check :only => [:new, :create]
+  
   # GET /users
   # GET /users.xml
   def index

@@ -16,3 +16,6 @@ admin_user = User.create(:nick=> 'admin',
             :password_confirmation => 'admin',
             :email => 'admin@example.com',
             :role => role_super_user)
+
+forum = Forum.create(:name => 'Free')
+Forum.create(:name => 'Private')
