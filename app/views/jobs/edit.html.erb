@@ -1,7 +1,7 @@
 <h2>Update AP on <%= @job.forum.name %></h2>
 
 <%= form_for(@job, :url => job_path) do |f| %>
-    <% if @job.errors.any? %>
+  <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
 
@@ -19,7 +19,7 @@
 
   <div class="field">
     <%= label_tag :handlers %><br />
-    <%= text_field_tag name='handlers', value = @handlers %>
+    <%= text_field_tag name='handlers', value = @job.handlers.map{|user| user.nick}.join(' ') %>
     <br/>
     <span class="description_title">Specify handlers separated by space.</span>
     <br/>

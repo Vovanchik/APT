@@ -75,6 +75,8 @@ class JobsController < ApplicationController
 
     new_handlers =find_received_users(params[:handlers].split(" ").uniq)
 
+    not_registered_users = find_not_registered_users (params[:handlers].split(" ").uniq)
+
     handlers_to_add =new_handlers - @job.handlers
     handlers_to_delete = @job.handlers - new_handlers
 
@@ -91,14 +93,24 @@ class JobsController < ApplicationController
       conclusion.description = current_user.nick + "\/"+ Time.now().strftime("%d.%m.%Y %H:%M") + ": " + params[:conclusion].to_s
       @job.conclusions << conclusion
     end
-    
+
+    if !not_registered_users.empty?
+      not_registered_users.each do |user|
+        @job.errors.add(user, "is not assigned to forum")
+      end
+    end
+
     respond_to do |format|
-      if @job.update_attributes(params[:job])
-        format.html { redirect_to (forum_path(@job.forum) )}
-        format.xml  { head :ok }
+      if not_registered_users.empty?
+        if @job.update_attributes(params[:job])
+          format.html { redirect_to (forum_path(@job.forum) )}
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+        end
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end

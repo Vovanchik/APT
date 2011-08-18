@@ -1,7 +1,6 @@
 class Job < ActiveRecord::Base
   validates_acceptance_of :description, :message => "should be specified"
 
-
   has_and_belongs_to_many :handlers,
     :class_name => "User",
     :join_table => "jobs_handlers",

@@ -36,4 +36,16 @@ class ApplicationController < ActionController::Base
     return found_users
   end
 
+  def find_not_registered_users (users)
+    found_users = Array.new()
+
+    users.each do |user|
+      new_user = User.find_by_nick(user)
+      if new_user.nil?
+        found_users << user
+      end
+    end
+    return found_users
+  end
+
 end
