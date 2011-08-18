@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def get_forum
-     @forum =  Forum.find_by_id(params[:forum_id])
   end
 
   def flash_message(type, text)

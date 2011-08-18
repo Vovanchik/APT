@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-
   before_filter :get_forum
   # GET /jobs
   # GET /jobs.xml
@@ -16,7 +15,8 @@ class JobsController < ApplicationController
   # GET /jobs/1.xml
   def show
     @job = Job.find(params[:id])
-
+    @forum = @job.forum
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @job }
@@ -37,6 +37,7 @@ class JobsController < ApplicationController
   # GET /jobs/1/edit
   def edit
     @job = Job.find(params[:id])
+    @forum = @job.forum
     @handlers = @job.handlers.map{|handler| handler.nick}
   end
 
@@ -56,7 +57,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         flash_message :notice, "Job #{@job.id} successfuly created"
-        format.html { redirect_to (forum_path(@forum) )}
+        format.html { redirect_to (forum_path(@job.forum) )}
         format.xml  { render :xml => @job, :status => :created, :location => @job }
       else
         format.html { render :action => "new" }
@@ -91,7 +92,7 @@ class JobsController < ApplicationController
     
     respond_to do |format|
       if @job.update_attributes(params[:job])
-        format.html { redirect_to (forum_path(@forum) )}
+        format.html { redirect_to (forum_path(@job.forum) )}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

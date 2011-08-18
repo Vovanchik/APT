@@ -35,14 +35,14 @@
 
 <b>History:</b>
 <table>
-  <%@job.conclusions.sort{ |a,b| b.created_at <=> a.created_at }.each do |conclusion|%>
+  <%@job.sort_conclusions_by_desc.each do |conclusion|%>
     <tr>
-      <td><%= conclusion.description %></td>
+      <td><%= conclusion.description if !conclusion.nil? %></td>
     </tr>
   <%end%>
 </table>
 
 
 
-<%= link_to 'Edit', edit_forum_job_path(@forum) %> |
+<%= link_to 'Edit', edit_job_path %> |
 <%= link_to 'Back', forum_path(@forum) %>

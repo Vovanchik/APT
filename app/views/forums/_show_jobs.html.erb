@@ -37,7 +37,7 @@
 
 <% @jobs.each do |job| %>
   <tr>
-    <td><%= link_to job.id , forum_job_path(@forum,job) %></td>
+    <td><%= link_to job.id , job_path(job) %></td>
     <td><%= job.description %></td>
     <td>
     <%job.handlers. each do |handler|%>
@@ -47,7 +47,8 @@
     <td><%=job.created_at.strftime("%d.%m.%Y %H:%M") %></td>
     <td><%= job.status %></td>
     <td><%= job.author.nick %></td>
-    <td><%= job.conclusions.sort{ |a,b| b.created_at <=> a.created_at}.first.description %></td>
+    
+    <td><%= job.show_last_conclusion.description %></td>
   </tr>
 <% end %>
 </table>
@@ -56,7 +57,7 @@
 
 <table class="controls">
  <tr>
-   <td><%= button_to('New action point' , new_forum_job_path(@forum), :method => :get) %> </td>
+   <td><%= button_to('New action point' , new_job_path, :method => :get) %> </td>
  </tr>
  <tr>
    <td><%= link_to "Back", forums_path, :method => :get %></td>

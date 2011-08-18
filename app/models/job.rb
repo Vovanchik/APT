@@ -10,4 +10,13 @@ class Job < ActiveRecord::Base
     :foreign_key => "author_id"
 
   has_many :conclusions
+
+  def sort_conclusions_by_desc
+    conclusions.sort{ |a,b| b.created_at <=> a.created_at }
+  end
+
+  def show_last_conclusion
+    conclusions.last(:all, :order => :created_at)
+  end
+
 end

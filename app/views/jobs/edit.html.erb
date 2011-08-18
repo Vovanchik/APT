@@ -1,6 +1,6 @@
-<h2>Update AP on <%= @forum.name %></h2>
+<h2>Update AP on <%= @job.forum.name %></h2>
 
-<%= form_for(@job, :url => forum_job_path(@forum)) do |f| %>
+<%= form_for(@job, :url => job_path) do |f| %>
     <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
@@ -49,7 +49,7 @@
   </div>
 
   <table>
-    <%@job.conclusions.sort{ |a,b| b.created_at <=> a.created_at }.each do |conclusion|%>
+    <%@job.sort_conclusions_by_desc.each do |conclusion|%>
         <tr>
           <td><%= conclusion.description %></td>
         </tr>
@@ -63,5 +63,5 @@
 <%end%>
 
 
-<%= link_to 'Show', forum_job_path(@forum) %> |
+<%= link_to 'Show', job_path %> |
 <%= link_to 'Back', forum_path(@forum) %>
