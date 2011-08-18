@@ -38,7 +38,8 @@ class ForumsController < ApplicationController
   # GET /forums/1/edit
   def edit
     @forum = Forum.find(params[:id])
-    @users = @forum.users.map{|user| user.nick}
+    @user_nicks = @forum.users.map{|user| user.nick}.join(' ')
+    @users = User.find(:all)
   end
 
   # POST /forums

@@ -64,5 +64,15 @@ table.tablelogin {
 table.tablelogin th {
 	font-family: verdana,arial,sans-serif;
 	font-size:14px;
+}
+
+.text_area {
+        width: 600px;
+        height: 120px;
+        border: 3px solid #cccccc;
+        padding: 5px;
+        font-family: Tahoma, sans-serif;
+        background-position: bottom right;
+        background-repeat: no-repeat;
 
 }

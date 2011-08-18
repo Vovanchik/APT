@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_filter :get_forum
+  #before_filter :get_forum
   # GET /jobs
   # GET /jobs.xml
   def index
@@ -38,6 +38,7 @@ class JobsController < ApplicationController
   def edit
     @job = Job.find(params[:id])
     @forum = @job.forum
+    
     @handlers = @job.handlers.map{|handler| handler.nick}
   end
 
@@ -70,6 +71,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1.xml
   def update
     @job = Job.find(params[:id])
+    @forum = @job.forum
 
     new_handlers =find_received_users(params[:handlers].split(" ").uniq)
 

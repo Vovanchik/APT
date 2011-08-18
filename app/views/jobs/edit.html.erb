@@ -20,6 +20,11 @@
   <div class="field">
     <%= label_tag :handlers %><br />
     <%= text_field_tag name='handlers', value = @handlers %>
+    <br/>
+    <span class="description_title">Specify handlers separated by space.</span>
+    <br/>
+    <span class="description_title">Users assigned to forum:</span>
+    <span><%=@forum.users.map{|user| user.nick}.join(', ')%></span>
   </div>
 
   <div class="field">
@@ -29,7 +34,7 @@
 
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_area :description, :class => :text_area %>
   </div>
 
   <table class="field">
@@ -45,7 +50,7 @@
 
   <div class="field">
     <%= label_tag :conclusion %><br />
-    <%= text_area_tag name='conclusion' %>
+    <%= text_area_tag name='conclusion', "",:class => :text_area %>
   </div>
 
   <table>
