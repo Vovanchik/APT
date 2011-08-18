@@ -8,13 +8,14 @@
    <th>Forums</th>
    <th colspan="3" > Actions </th>
    <%else%>
-   <th></th>
+   <th colspan="2" ></th>
     <%end%>
   </tr>
-
+ <%counter = 0%>
 <% @forums.each do |forum| %>
   <tr>
     <%if cannot? :add_handlers_to_forum, forum%>
+      <td><%= counter +=1 %></td>
       <td><%= link_to forum.name, forum_path(forum) %></td>
     <%end%>
     <%if can? :add_handlers_to_forum, forum%>

@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @role %> |
-<%= link_to 'Back', roles_path %>
+<%= button_to 'Show', @role , :method => :get %> 
+<%= button_to 'Back', roles_path, :method => :get %>

@@ -53,7 +53,10 @@
     <%= text_area_tag name='conclusion', "",:class => :text_area %>
   </div>
 
-  <table>
+<table class="apttable">
+  <tr>
+  <th>History:</th>
+  </tr>
     <%@job.sort_conclusions_by_desc.each do |conclusion|%>
         <tr>
           <td><%= conclusion.description %></td>
@@ -68,5 +71,6 @@
 <%end%>
 
 
-<%= link_to 'Show', job_path %> |
-<%= link_to 'Back', forum_path(@forum) %>
+<%= button_to 'Show', job_path, :method => :get %>
+   <p></p>
+<%= button_to 'Back', forum_path(@forum), :method => :get %>
