@@ -14,7 +14,7 @@
   <b>Name:</b>
   <%= @forum.name %>
 </p>
-<table class="actionpoints" >
+<table class="apttable" >
   <tr>
     <th>#</th>
     <th>Corporate ID</th>
@@ -36,7 +36,7 @@
 </table>
 
 &nbsp;
-<table>
+<table class="controls">
  <tr>
    <td><%= link_to "Back", forums_path, :method => :get %></td>
  </tr>
