@@ -11,13 +11,9 @@
 </div>
 
 <p>
-  <b>Name:</b>
-  <%= @forum.name %>
+  
+<h1> <%= @forum.name %> </h1>
 </p>
-<p>
-  <b>Action Points:</b>
-</p>
-
 <table class="apttable" >
   <tr>
     <th>AP # </th>
@@ -55,7 +51,7 @@
    <td><%= button_to('New action point' , new_job_path, :method => :get) %> </td>
  </tr>
  <tr>
-   <td><%= link_to "Back", forums_path, :method => :get %></td>
+   <td><%= button_to( "Back", forums_path, :method => :get )%></td>
  </tr>
 </table>
 

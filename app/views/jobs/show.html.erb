@@ -36,7 +36,9 @@
   <%end%>
 </table>
 
-
-
-<%= button_to 'Edit', edit_job_path, :method => :get %>
-<%= button_to 'Back', forum_path(@forum), :method => :get %>
+<table class="controls">
+  <tr>
+    <td><%= button_to 'Edit', edit_job_path, :method => :get %></td>
+    <td><%= button_to 'Back', forum_path(@forum), :method => :get %></td>
+  </tr>
+</table>

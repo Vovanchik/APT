@@ -7,45 +7,38 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-<% if current_user %>
 
+ <% if current_user %>
 
-  
-  <table class="tablelogin">
-
-    <tr>
-      <th colspan="2" >
-        <%if current_user.role? :super_user%>
-          <%=  "Greetings Master" %>
-        <%else%>
+<table class="tablelogin">
+  <tr>
+    <th>
+     <%if current_user.role? :super_user%>
+        <%=  "Greetings Master" %>
+      <%else%>
           <%=  "Hello #{current_user.name}." %>
-        <%end%>
-      </th>
-    </tr>
-    <tr>
-      <td>
-       <%= button_to "Edit Profile", edit_user_path(current_user.id), :method => :get%>
-      </td>
-      <td>
-       <%= button_to "Logout", :logout %>
-      </td>
-    </tr>
+      <%end%>
+    </th>
+    <td><%= button_to "Edit Profile", edit_user_path(current_user.id), :method => :get%></td>
+    <td class="logoutbutton" ><%= button_to "Logout", :logout %></td>
+  </tr>
+</table>
 
-  </table>
-
-  <div id="slantedmenu">
+<div id="slantedmenu">
  <ul>
   <%if can? :update, @forums%>
   <li><%= link_to'New Forum', new_forum_path%></li>
   <%end%>
   <%if can? :update,@users%>
   <li><%= link_to'Users', users_path%></li>
+  <li><%= link_to'Add User', new_user_path%></li>
   <%end%>
   <li><%= link_to'New AP' , new_job_path%></li>
-  <li><%= link_to'My AP', jobs_path%></li>
+  <li><%= link_to'Asigned AP', jobs_path%></li>
   <li><%= link_to'Free AP', @forum_free%></li>
   <li><%= link_to'Private AP', @forum_private%></li>
   <li><%= link_to'Forums', forums_path%></li>
+
  </ul>
 </div>
 

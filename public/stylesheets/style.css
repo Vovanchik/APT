@@ -11,7 +11,8 @@ root {
 
 body {
         background-color:antiquewhite;
-
+        padding-left: 5%;
+        padding-right: 5%;
 }
 
 body h1{
@@ -49,22 +50,14 @@ table.apttable td {
 
 table.controls {
         margin-left: auto;
+        padding-right: 5%;
 }
 
 a img{
     border:0;
 }
 
-table.tablelogin {
-        margin-left: auto;
-        width: auto ;
-        font-family: verdana,arial,sans-serif;
-	font-size:11px;
-}
-table.tablelogin th {
-	font-family: verdana,arial,sans-serif;
-	font-size:14px;
-}
+
 
 .text_area {
         width: 600px;

@@ -3,6 +3,7 @@
 
     <%= render 'form' %>
 
-    <%= link_to 'Show', @forum %> |
-    <%= link_to 'Back', forums_path %>
+    <%= button_to 'Show', @forum, :method => :get %>
+    <p> </p>
+    <%= button_to 'Back', forums_path, :method => :get %>
 </body>
