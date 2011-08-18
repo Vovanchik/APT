@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
     flash[type] << text
   end
 
-  
   def find_received_users (users)
     found_users = Array.new()
 
@@ -36,7 +35,7 @@ class ApplicationController < ActionController::Base
     return found_users
   end
 
-  def find_not_registered_users (users)
+    def find_not_registered_users (users)
     found_users = Array.new()
 
     users.each do |user|

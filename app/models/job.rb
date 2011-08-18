@@ -1,6 +1,4 @@
 class Job < ActiveRecord::Base
-  validates_presence_of :description, :message => "should be specified"
-
   has_and_belongs_to_many :handlers,
     :class_name => "User",
     :join_table => "jobs_handlers",
@@ -13,6 +11,8 @@ class Job < ActiveRecord::Base
 
   has_many :conclusions
 
+  validates :description, :presence => { :message => "should be specified"}
+
   def sort_conclusions_by_desc
     conclusions.sort{ |a,b| b.created_at <=> a.created_at }
   end
@@ -20,5 +20,4 @@ class Job < ActiveRecord::Base
   def show_last_conclusion
     conclusions.last(:all, :order => :created_at)
   end
-
 end
