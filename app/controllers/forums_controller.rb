@@ -16,8 +16,13 @@ class ForumsController < ApplicationController
   # GET /forums/1.xml
   def show
     @forum = Forum.find(params[:id])
-    @jobs = @forum.jobs
 
+    if @forum.private?
+      @jobs = @forum.jobs.find_all_by_author_id(current_user.id)
+    else
+      @jobs = @forum.jobs
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @forum }

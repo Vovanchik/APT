@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :current_user_session
 
+  before_filter :find_menu_data
+  
   private
 
   def current_user_session
@@ -45,6 +47,11 @@ class ApplicationController < ActionController::Base
       end
     end
     return found_users
+  end
+
+  def find_menu_data
+    @forum_free = Forum.find_by_name(:free)
+    @forum_private = Forum.find_by_name(:private)
   end
 
 end

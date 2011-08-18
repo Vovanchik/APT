@@ -1,40 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>AP #</b>
-  <%= @job.id %>
-</p>
-
-<p>
-  <b>Author:</b>
-  <%= @job.author.nick %>
-</p>
-
-<p>
-  <b>Handlers:</b>
-  <%@job.handlers.map{|h| h.nick}.each do |handler| %>
+<table class="apttable">
+  <tr>
+    <th>AP #</th>
+    <th>Author</th>
+    <th>Handlers</th>
+    <th>Status</th>
+    <th>Description</th>
+    <th>Due date and time:</th>
+  </tr>
+  <tr>
+    <td><%= @job.id %></td>
+    <td><%= @job.author.nick %></td>
+    <td>  <%@job.handlers.map{|h| h.nick}.each do |handler| %>
     <%=  handler %>
   <%end%>
-</p>
+    </td>
+    <td><%= @job.status %></td>
+    <td><%= @job.description %></td>
+    <td><%= @job.due_date.strftime("%d.%m.%Y") %>&nbsp;<%= @job.due_time.strftime("%H:%M") %></td>
+  </tr>
+  
+</table>
 
-<p>
-  <b>Status:</b>
-  <%= @job.status %>
-</p>
+<p></p>
 
-<p>
-  <b>Description:</b>
-  <%= @job.description %>
-</p>
-
-<p>
-  <b>Due date and time:</b>
-  <%= @job.due_date.strftime("%d.%m.%Y") %>&nbsp;<%= @job.due_time.strftime("%H:%M") %>
-</p>
-
-
-<b>History:</b>
-<table>
+<table class="apttable">
+  <tr>
+  <th>History:</th>
+  </tr>
   <%@job.sort_conclusions_by_desc.each do |conclusion|%>
     <tr>
       <td><%= conclusion.description if !conclusion.nil? %></td>
@@ -44,5 +38,5 @@
 
 
 
-<%= link_to 'Edit', edit_job_path %> |
-<%= link_to 'Back', forum_path(@forum) %>
+<%= button_to 'Edit', edit_job_path, :method => :get %>
+<%= button_to 'Back', forum_path(@forum), :method => :get %>

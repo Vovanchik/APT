@@ -6,4 +6,12 @@ class Forum < ActiveRecord::Base
     :class_name => "User",
     :foreign_key => "author_id"
 
+  def free?
+    self.name == 'Free'
+  end
+
+  def private?
+    self.name == 'Private'
+  end
+
 end

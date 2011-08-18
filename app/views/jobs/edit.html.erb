@@ -24,7 +24,7 @@
     <span class="description_title">Specify handlers separated by space.</span>
     <br/>
     <span class="description_title">Users assigned to forum:</span>
-    <span><%=@forum.users.map{|user| user.nick}.join(', ')%></span>
+    <span><%=users_assigned_to_forum(@forum)%></span>
   </div>
 
   <div class="field">
@@ -63,7 +63,7 @@
    <br/>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update AP" %>
   </div>
 <%end%>
 

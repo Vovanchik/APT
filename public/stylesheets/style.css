@@ -20,7 +20,6 @@ body h1{
 
 table.apttable {
         text-align: left;
-}
         margin-right: auto;
         margin-left: auto;
         width: 100% ;
@@ -32,6 +31,7 @@ table.apttable {
 	border-collapse: collapse;
 }
 table.apttable th {
+        text-align: center;
 	border-width: 1px;
 	padding: 8px;
 	border-style: solid;

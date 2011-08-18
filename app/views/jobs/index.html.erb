@@ -10,13 +10,7 @@
   <% end %>
 </div>
 
-<p>
-  <b>Name:</b>
-  <%= @forum.name %>
-</p>
-<p>
-  <b>Action Points:</b>
-</p>
+<br/>
 
 <table class="apttable" >
   <tr>
@@ -37,12 +31,12 @@
     <%job.handlers. each do |handler|%>
       <%=handler.nick%>
     <%end %>
-      
+
     </td>
     <td><%=job.created_at.strftime("%d.%m.%Y %H:%M") %></td>
     <td><%= job.status %></td>
     <td><%= job.author.nick %></td>
-    
+
     <td><%= job.show_last_conclusion.description if !job.show_last_conclusion.nil? %></td>
   </tr>
 <% end %>
@@ -53,9 +47,6 @@
 <table class="controls">
  <tr>
    <td><%= button_to('New action point' , new_job_path, :method => :get) %> </td>
- </tr>
- <tr>
-   <td><%= link_to "Back", forums_path, :method => :get %></td>
  </tr>
 </table>
 

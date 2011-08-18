@@ -3,9 +3,12 @@
 
 <table class="apttable">
  <tr>
-    <th>Forums</th>
+    
     <%if can? :add_handlers_to_forum, @forum%>
-    <th colspan="3" > Actions </th>
+   <th>Forums</th>
+   <th colspan="3" > Actions </th>
+   <%else%>
+   <th></th>
     <%end%>
   </tr>
 

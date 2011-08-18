@@ -47,6 +47,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.role = Role.find_by_name(:user)
+    @forum_free.users << @user
+    @forum_private.users << @user
 
     respond_to do |format|
       if @user.save
