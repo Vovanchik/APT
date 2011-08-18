@@ -4,7 +4,11 @@ class ForumsController < ApplicationController
   # GET /forums
   # GET /forums.xml
   def index
-    @forums = Forum.all
+    if current_user.admin?
+      @forums = Forum.find(:all)
+    else
+      @forums = current_user.forums
+    end;
 
     respond_to do |format|
       format.html # index.html.erb
