@@ -22,7 +22,7 @@
     <span class="description_title">Specify users separated by space.</span>
      <br/>
     <span class="description_title">Registered users:</span>
-  <span class="description"><%=@users.map{|user| user.nick}.join(', ')%></span>
+    <span class="description"><%=@users.map{|user| user.nick}.join(', ') if !@user.nil?%></span>
   </div>
   <div class="actions">
     <%= f.submit %>
