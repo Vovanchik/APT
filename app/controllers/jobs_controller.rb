@@ -1,9 +1,10 @@
 class JobsController < ApplicationController
+  #load_and_authorize_resource
   #before_filter :get_forum
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = @forum.jobs
+    @jobs = current_user.jobs
 
     respond_to do |format|
       format.html # index.html.erb

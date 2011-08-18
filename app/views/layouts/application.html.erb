@@ -9,24 +9,12 @@
 <body>
 <% if current_user %>
 
-<div id="slantedmenu">
- <ul>
-  <li><%= link_to'New AP' , jobs_path%></li>
-  <li><%= link_to'My AP', current_user%></li>
-  <li><%= link_to'Free AP', current_user%></li>
-  <li><%= link_to'Private AP', current_user%></li>
-  <li><%= link_to'New Forum', new_forum_path%></li>
-  <li><%= link_to'My Forums', forums_path%></li>
-    <%if current_user.role? :super_user%>
-  <li> <%= link_to "Users", users_path%></li>
-    <%end%>
- </ul>
-</div>
+
   
   <table class="tablelogin">
 
     <tr>
-      <th>
+      <th colspan="2" >
         <%if current_user.role? :super_user%>
           <%=  "Greetings Master" %>
         <%else%>
@@ -36,16 +24,30 @@
     </tr>
     <tr>
       <td>
-       <%= link_to "Edit Profile", edit_user_path(current_user.id)%>
+       <%= button_to "Edit Profile", edit_user_path(current_user.id), :method => :get%>
       </td>
-    </tr>
-    <tr>
       <td>
        <%= button_to "Logout", :logout %>
       </td>
     </tr>
 
   </table>
+
+  <div id="slantedmenu">
+ <ul>
+  <%if can? :update, @forums%>
+  <li><%= link_to'New Forum', new_forum_path%></li>
+  <%end%>
+  <%if can? :update,@users%>
+  <li><%= link_to'Users', users_path%></li>
+  <%end%>
+  <li><%= link_to'New AP' , new_job_path%></li>
+  <li><%= link_to'My AP', jobs_path%></li>
+  <li><%= link_to'Free AP', @forum_free%></li>
+  <li><%= link_to'Private AP', @forum_private%></li>
+  <li><%= link_to'Forums', forums_path%></li>
+ </ul>
+</div>
 
   
 <% end %>
