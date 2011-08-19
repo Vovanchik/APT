@@ -5,9 +5,14 @@ class Job < ActiveRecord::Base
     :uniq => true
   
   belongs_to :forum
+
   belongs_to :author,
     :class_name => "User",
     :foreign_key => "author_id"
+
+  belongs_to :assigned_by,
+    :class_name => "User",
+    :foreign_key => "assigned_by_id"
 
   has_many :conclusions
 

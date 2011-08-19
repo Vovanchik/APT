@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817142000) do
+ActiveRecord::Schema.define(:version => 20110819134608) do
 
   create_table "conclusions", :force => true do |t|
     t.integer  "job_id"
@@ -36,11 +36,12 @@ ActiveRecord::Schema.define(:version => 20110817142000) do
     t.integer  "forum_id"
     t.integer  "job_number"
     t.string   "description"
-    t.string   "status",      :default => "not_started"
+    t.string   "status",         :default => "not_started"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
     t.time     "due_time"
+    t.integer  "assigned_by_id"
   end
 
   create_table "jobs_handlers", :id => false, :force => true do |t|

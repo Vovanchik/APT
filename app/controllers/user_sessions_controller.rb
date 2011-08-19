@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+  skip_authorization_check
+
  # GET /user_sessions/new
   # GET /user_sessions/new.xml
   def new

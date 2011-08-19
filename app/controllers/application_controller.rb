@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  check_authorization
+
   protect_from_forgery
 
   helper_method :current_user, :current_user_session
@@ -54,5 +56,10 @@ class ApplicationController < ActionController::Base
     @forum_private = Forum.find_by_name(:private)
     @users_all = User.find(:all)
   end
+
+ # rescue_from CanCan::AccessDenied do |exception|
+ #   flash[:error] = exception.message
+ #   redirect_to root_url
+ # end
 
 end
