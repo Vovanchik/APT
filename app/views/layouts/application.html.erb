@@ -16,13 +16,21 @@
      <%if current_user.role? :super_user%>
         <%=  "Greetings Master" %>
       <%else%>
-          <%=  "Hello #{current_user.name}." %>
+          <%=  "Hello #{current_user.name == "" ? current_user.nick : current_user.name}." %>
       <%end%>
     </th>
     <td><%= button_to "Edit Profile", edit_user_path(current_user.id), :method => :get%></td>
     <td class="logoutbutton" ><%= button_to "Logout", :logout %></td>
   </tr>
 </table>
+  
+<% flash.each do |type, message| %>
+ <table id="<%= type %>">
+  <tr>
+     <th><%= message%></th>
+  </tr>
+ </table>
+<% end %>
 
 <div id="slantedmenu">
  <ul>
@@ -40,10 +48,8 @@
   <li><%= link_to'Forums', forums_path%></li>
 
  </ul>
-</div>
-
-  
-<% end %>
+</div>  
+<%end %>
 
 <%= yield %>
 

@@ -1,14 +1,18 @@
 <body>
 
-  <div >
-  <% flash.each do |type, messages| %>
-    <%  messages.each do |message|%>
-      <div id="<%= type %>">
-        <p><%= message%></p>
-      </div>
-    <% end %>
+  <p id="notice"><%= notice %></p>
+
+  <% if @forum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@forum.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @forum.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
-</div>
 
 <p>
   

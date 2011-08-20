@@ -1,4 +1,6 @@
 class ConclusionsController < ApplicationController
+  load_and_authorize_resource
+  
   # GET /conclusions
   # GET /conclusions.xml
   def index

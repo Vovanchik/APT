@@ -1,7 +1,7 @@
 class UserSessionsController < ApplicationController
   skip_authorization_check
 
- # GET /user_sessions/new
+  # GET /user_sessions/new
   # GET /user_sessions/new.xml
   def new
     @user_session = UserSession.new
@@ -19,7 +19,7 @@ class UserSessionsController < ApplicationController
 
     respond_to do |format|
       if @user_session.save
-        format.html { redirect_to(forums_path, :notice => 'Login Successful') }
+        format.html { redirect_to(forums_path) }
         format.xml  { render :xml => @user_session, :status => :created, :location => @user_session }
       else
         format.html { render :action => "new" }
@@ -35,7 +35,7 @@ class UserSessionsController < ApplicationController
     @user_session.destroy
 
     respond_to do |format|
-      format.html { redirect_to(root_path, :notice => 'Goodbye!')  }
+      format.html { redirect_to(root_path)  }
       format.xml  { head :ok }
     end
   end

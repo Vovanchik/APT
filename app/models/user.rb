@@ -11,6 +11,12 @@ class User < ActiveRecord::Base
     c.login_field = :nick
   end
 
+  def assigned_to?(forum)
+    unless self.forums.nil?
+      return self.forums.include?(forum)
+    end
+  end
+
   def role?(role)
     unless self.role.nil?
       return self.role.name == role.to_s

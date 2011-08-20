@@ -24,31 +24,29 @@ class ApplicationController < ActionController::Base
     flash[type] << text
   end
 
-  def find_received_users (users)
+  def registered_users (users)
     found_users = Array.new()
-
     users.each do |user|
       new_user = User.find_by_nick(user)
-      if new_user.nil?
-        flash_message :error, "User #{user} is not defined in DB"
-      else
-        found_users ||=[]
-        found_users << new_user
-      end
+      found_users << new_user unless new_user.nil?
     end
     return found_users
   end
 
-    def find_not_registered_users (users)
-    found_users = Array.new()
+  def not_assigned_users?(users, parent_object, error_object)
+    users.each{
+      |handler|
+        error_object.errors.add(handler.nick, "is not assigned to forum") unless handler.assigned_to? parent_object
+    }
+    return error_object.errors.count !=0
+  end
 
-    users.each do |user|
-      new_user = User.find_by_nick(user)
-      if new_user.nil?
-        found_users << user
-      end
-    end
-    return found_users
+  def not_registered_users?(users, object)
+    users.each{
+      |user|
+        object.errors.add(user, "is not registered") if User.find_by_nick(user).nil?
+    }
+    return object.errors.count !=0
   end
 
   def find_menu_data
@@ -57,9 +55,13 @@ class ApplicationController < ActionController::Base
     @users_all = User.find(:all)
   end
 
- # rescue_from CanCan::AccessDenied do |exception|
- #   flash[:error] = exception.message
- #   redirect_to root_url
- # end
+ rescue_from CanCan::AccessDenied do |exception|
+    if current_user.nil?
+      redirect_to :login
+    else
+      flash[:access_denied] = "You are not authorized to do this!!!"
+      redirect_to root_url
+    end
+  end
 
 end

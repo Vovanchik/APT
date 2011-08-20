@@ -1,6 +1,5 @@
 APT::Application.routes.draw do
-  
-
+ 
   resources :conclusions, :forums, :jobs, :roles, :users, :user_sessions
 
   match 'login' => 'user_sessions#new',       :as => :login
@@ -55,7 +54,7 @@ APT::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'user_sessions#new'
+  root :to => 'forums#index'
 
   # See how all your routes lay out with "rake routes"
 

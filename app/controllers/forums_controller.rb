@@ -57,20 +57,24 @@ class ForumsController < ApplicationController
     @forum = Forum.new(params[:forum])
     @forum.author = current_user
 
-    new_users =find_received_users(params[:users].split(" ").uniq)
+    new_users = registered_users(params[:users].split(" ").uniq)
 
     new_users.each do |user|
         @forum.users << user
     end
     
     respond_to do |format|
-      if @forum.save
-        flash_message :notice, "Forum #{@forum.name} was successfully created."
-        format.html { redirect_to forums_path}
-        format.xml  { render :xml => @forum, :status => :created, :location => @forum }
+      unless not_registered_users?(params[:users].split(" ").uniq, @forum)
+        if @forum.save
+          format.html { redirect_to(forums_path, :notice => "Forum #{@forum.name} was successfully created.")}
+          format.xml  { render :xml => @forum, :status => :created, :location => @forum }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @forum.errors, :status => :unprocessable_entity }
+        end
       else
+        @user_nicks = new_users.map{|user| user.nick}.join(' ')
         format.html { render :action => "new" }
-        format.xml  { render :xml => @forum.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -80,8 +84,8 @@ class ForumsController < ApplicationController
   def update
     @forum = Forum.find(params[:id])
 
-    new_users =find_received_users(params[:users].split(" ").uniq)
-
+    new_users = registered_users(params[:users].split(" ").uniq)
+    
     users_to_add =new_users - @forum.users
     users_to_delete = @forum.users - new_users
 
@@ -92,14 +96,19 @@ class ForumsController < ApplicationController
     users_to_delete.each do |user|
       @forum.users.delete(user)
     end
-
+    
     respond_to do |format|
-      if @forum.update_attributes(params[:forum])
-        format.html { redirect_to(forums_path, :notice => 'Forum was successfully updated.') }
-        format.xml  { head :ok }
+      unless not_registered_users?(params[:users].split(" ").uniq, @forum)
+        if @forum.update_attributes(params[:forum])
+          format.html { redirect_to(forums_path, :notice => "Forum #{@forum.name} was successfully updated.") }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit"}
+          format.xml  { render :xml => @forum.errors, :status => :unprocessable_entity }
+        end
       else
+        @user_nicks = @forum.users.map{|user| user.nick}.join(' ')
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @forum.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -111,7 +120,7 @@ class ForumsController < ApplicationController
     @forum.destroy
 
     respond_to do |format|
-      format.html { redirect_to(forums_url) }
+      format.html { redirect_to(forums_url, :notice => "Forum #{@forum.name} was successfully deleted.") }
       format.xml  { head :ok }
     end
   end

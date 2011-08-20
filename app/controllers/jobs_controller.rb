@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   load_and_authorize_resource
+
   #before_filter :get_forum
   # GET /jobs
   # GET /jobs.xml
@@ -39,7 +40,6 @@ class JobsController < ApplicationController
   def edit
     @job = Job.find(params[:id])
     @forum = @job.forum
-    
     @handlers = @job.handlers.map{|handler| handler.nick}
   end
 
@@ -50,20 +50,24 @@ class JobsController < ApplicationController
     @job.author = current_user
     @job.status = :opened
     
-    new_handlers =find_received_users(params[:handlers].split(" ").uniq)
+    new_handlers = registered_users(params[:handlers].split(" ").uniq)
 
     new_handlers.each do |handler|
         @job.handlers << handler
     end
 
     respond_to do |format|
-      if @job.save
-        flash_message :notice, "Job #{@job.id} successfuly created"
-        format.html { redirect_to (forum_path(@job.forum) )}
-        format.xml  { render :xml => @job, :status => :created, :location => @job }
+      unless not_registered_users?(params[:handlers].split(" ").uniq, @job)
+        if @job.save
+          format.html { redirect_to(@job.forum, :notice => "Job ##{@job.id} was successfully created.") }
+          format.xml  { render :xml => @job, :status => :created, :location => @job }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+        end
       else
+        @handlers = @job.handlers.map{|handler| handler.nick}
         format.html { render :action => "new" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -74,12 +78,16 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     @forum = @job.forum
 
-    new_handlers =find_received_users(params[:handlers].split(" ").uniq)
+    received_users = params[:handlers].split(" ").uniq
 
-    not_registered_users = find_not_registered_users (params[:handlers].split(" ").uniq)
+    new_assigned_and_registered_handlers ||= []
+    registered_users(received_users).each {
+      |handler|
+        new_assigned_and_registered_handlers << handler if handler.assigned_to? @forum
+    }
 
-    handlers_to_add =new_handlers - @job.handlers
-    handlers_to_delete = @job.handlers - new_handlers
+    handlers_to_add = new_assigned_and_registered_handlers - @job.handlers
+    handlers_to_delete = @job.handlers - new_assigned_and_registered_handlers
 
     handlers_to_add.each do |handler|
         @job.handlers << handler
@@ -95,22 +103,17 @@ class JobsController < ApplicationController
       @job.conclusions << conclusion
     end
 
-    if !not_registered_users.empty?
-      not_registered_users.each do |user|
-        @job.errors.add(user, "is not assigned to forum")
-      end
-    end
-
     respond_to do |format|
-      if not_registered_users.empty?
+      unless not_registered_users?(received_users, @job) || not_assigned_users?(registered_users(received_users), @forum, @job)
         if @job.update_attributes(params[:job])
-          format.html { redirect_to (forum_path(@job.forum) )}
+          format.html { redirect_to(@job.forum, :notice =>"Job #{@job.id} was successfully updated.")}
           format.xml  { head :ok }
         else
           format.html { render :action => "edit" }
           format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
         end
       else
+        @handlers = @job.handlers.map{|handler| handler.nick}
         format.html { render :action => "edit" }
       end
     end

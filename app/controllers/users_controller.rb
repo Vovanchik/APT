@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource :only => [:index, :show, :edit, :update, :destroy]
   skip_authorization_check :only => [:new, :create]
-  
+
+  before_filter :find_menu_data
   # GET /users
   # GET /users.xml
   def index

@@ -6,6 +6,8 @@ class Forum < ActiveRecord::Base
     :class_name => "User",
     :foreign_key => "author_id"
 
+  validates :name, :presence => { :message => "should be specified"}
+
   def free?
     self.name == 'Free'
   end
