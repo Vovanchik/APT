@@ -1,6 +1,8 @@
 class Forum < ActiveRecord::Base
   has_and_belongs_to_many :users
-  has_many :jobs
+  has_many :jobs,
+    :order => 'created_at DESC',
+    :dependent => :restrict
 
   belongs_to :author,
     :class_name => "User",

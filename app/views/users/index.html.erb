@@ -5,7 +5,7 @@
     <th>Name</th>
     <th>Surname</th>
     <th>Authorities</th>
-    <th colspan="2" >Actions</th>
+    <th>Actions</th>
   </tr>
 
 <% @users.each do |user| %>
@@ -15,16 +15,13 @@
     <td><%= user.surname %></td>
     <td><%= user.role.name %></td>
     <td class="controls">
-      <%= link_to "Edit user", edit_user_path(user) %>
-    <td>
-      <%if !user.admin?%>
-        <%= link_to "Delete user", user, :method => :delete, :confirm => 'Are you sure?'%>
-      <%end%>
-    </td>
+      <%= link_to image_tag("/images/button_edit.png"), edit_user_path(user)%>
     </td>
   </tr>
 <% end %>
 </table>
+
+<%= will_paginate @users %>
 <br />
 <table class="controls">
     <td>

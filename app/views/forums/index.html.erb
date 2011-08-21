@@ -2,6 +2,7 @@
 <h1>Forums:</h1>
 
 <p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <table class="apttable">
 
@@ -36,6 +37,9 @@
   </tr>
 <% end %>
 </table>
+
+<%= will_paginate @forums %>
+
 <%if can? :add_handlers_to_forum, @forum%>
   <br/>
   <table class="controls">

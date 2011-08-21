@@ -5,9 +5,9 @@ class ForumsController < ApplicationController
   # GET /forums.xml
   def index
     if current_user.admin?
-      @forums = Forum.find(:all)
+      @forums = Forum.find(:all).paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
     else
-      @forums = current_user.forums
+      @forums = current_user.forums.paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
     end;
 
     respond_to do |format|
@@ -20,11 +20,12 @@ class ForumsController < ApplicationController
   # GET /forums/1.xml
   def show
     @forum = Forum.find(params[:id])
-
+    @users = @forum.users.paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
+    
     if @forum.private?
-      @jobs = @forum.jobs.find_all_by_author_id(current_user.id)
+      @jobs = @forum.jobs.find_all_by_author_id(current_user.id).paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
     else
-      @jobs = @forum.jobs
+      @jobs = @forum.jobs.paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
     end
     
     respond_to do |format|
@@ -117,11 +118,18 @@ class ForumsController < ApplicationController
   # DELETE /forums/1.xml
   def destroy
     @forum = Forum.find(params[:id])
-    @forum.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(forums_url, :notice => "Forum #{@forum.name} was successfully deleted.") }
-      format.xml  { head :ok }
+   
+    begin
+      @forum.destroy
+      respond_to do |format|
+        format.html { redirect_to(forums_url, :notice => "Forum #{@forum.name} was successfully deleted.") }
+        format.xml  { head :ok }
+      end
+    rescue ActiveRecord::DeleteRestrictionError
+      respond_to do |format|
+        format.html { redirect_to(forums_url, :flash => {:alert => "Forum #{@forum.name} cann`t be deleted due to dependencies to APs."}) }
+        format.xml  { head :ok }
+      end
     end
   end
 end

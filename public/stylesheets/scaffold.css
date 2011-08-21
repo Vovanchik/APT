@@ -24,7 +24,7 @@ div.field, div.actions {
   color: green;
 }
 
-#error {
+#alert{
   color: red;
 }
 

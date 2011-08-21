@@ -16,6 +16,8 @@ class Job < ActiveRecord::Base
 
   has_many :conclusions
 
+  default_scope :order => 'created_at DESC'
+
   validates :description, :presence => { :message => "should be specified"}
 
   def sort_conclusions_by_desc

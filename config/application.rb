@@ -1,6 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'will_paginate'
+require 'will_paginate/active_record'
+require 'will_paginate/array'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.

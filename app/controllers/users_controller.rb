@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = User.all.paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to(forums_path, :notice => 'User was successfully created.') }
+        format.html { redirect_to(forums_path, :notice => "Hello") }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }

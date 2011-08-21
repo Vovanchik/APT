@@ -1,14 +1,6 @@
 <body>
 
-  <div >
-  <% flash.each do |type, messages| %>
-    <%  messages.each do |message|%>
-      <div id="<%= type %>">
-        <p><%= message%></p>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+  <p id="notice"><%= notice %></p>
 
 <p>
   <b>Name:</b>
@@ -24,7 +16,7 @@
   </tr>
 
 <%count = 0 %>
-<% @forum.users.each do |user| %>
+<% @users.each do |user| %>
   <tr>
     <td><%=count = count + 1%></td>
     <td><%=user.nick %></td>
@@ -35,6 +27,7 @@
 <% end %>
 </table>
 
+<%= will_paginate @users %>
 &nbsp;
 <table class="controls">
  <tr>

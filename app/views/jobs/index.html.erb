@@ -17,6 +17,7 @@
     <th>AP # </th>
     <th>Description</th>
     <th>Handlers</th>
+    <th>Forum</th>
     <th>Date/time</th>
     <th>Status</th>
     <th>Author</th>
@@ -28,11 +29,11 @@
     <td><%= link_to job.id , job_path(job) %></td>
     <td><%= job.description %></td>
     <td>
-    <%job.handlers. each do |handler|%>
-      <%=handler.nick%>
-    <%end %>
-
+      <%job.handlers. each do |handler|%>
+        <%=handler.nick%>
+      <%end %>
     </td>
+    <td><%=link_to job.forum.name, job.forum %></td>
     <td><%=job.created_at.strftime("%d.%m.%Y %H:%M") %></td>
     <td><%= job.status %></td>
     <td><%= job.author.nick %></td>
@@ -42,6 +43,7 @@
 <% end %>
 </table>
 
+<%= will_paginate @jobs %>
 &nbsp;
 
 <table class="controls">

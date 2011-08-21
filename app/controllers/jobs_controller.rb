@@ -5,8 +5,15 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = current_user.jobs
-
+    case params[:type]
+    when 'assigned_to_me'
+      @jobs = current_user.jobs.paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
+    when 'assigned_by_me'
+      @jobs = Job.find_all_by_assigned_by_id(current_user.id).paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
+    else
+      @jobs = Job.find(:all).paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @jobs }
@@ -48,13 +55,15 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(params[:job])
     @job.author = current_user
-    @job.status = :opened
-    
+    @job.status = :open
+
     new_handlers = registered_users(params[:handlers].split(" ").uniq)
 
     new_handlers.each do |handler|
         @job.handlers << handler
     end
+
+    @job.assigned_by =  !@job.handlers.nil? ? current_user : nil
 
     respond_to do |format|
       unless not_registered_users?(params[:handlers].split(" ").uniq, @job)
@@ -77,7 +86,8 @@ class JobsController < ApplicationController
   def update
     @job = Job.find(params[:id])
     @forum = @job.forum
-
+    @job.assigned_by = current_user
+    
     received_users = params[:handlers].split(" ").uniq
 
     new_assigned_and_registered_handlers ||= []
@@ -96,6 +106,8 @@ class JobsController < ApplicationController
     handlers_to_delete.each do |handler|
       @job.handlers.delete(handler)
     end
+
+    @job.assigned_by =  !@job.handlers.nil? ? current_user : nil
 
     if !params[:conclusion].empty?
       conclusion = Conclusion.new()
@@ -117,6 +129,11 @@ class JobsController < ApplicationController
         format.html { render :action => "edit" }
       end
     end
+  end
+
+  def before_destroy
+    flash[:access_denied] = "Cannot delete record due to dependents to jobs" unless booking_payments.count == 0
+    false
   end
 
   # DELETE /jobs/1

@@ -71,6 +71,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.28)
+    will_paginate (3.0.0)
 
 PLATFORMS
   ruby
@@ -81,3 +82,4 @@ DEPENDENCIES
   cancan
   mysql2 (~> 0.2.6)
   rails (= 3.0.9)
+  will_paginate (>= 3.0.pre4)

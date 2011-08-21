@@ -8,6 +8,7 @@ gem 'rails', '3.0.9'
 gem 'mysql2', '~> 0.2.6'
 gem 'authlogic'
 gem 'cancan'
+gem 'will_paginate', '>= 3.0.pre4'
 
 # Use unicorn as the web server
 # gem 'unicorn'

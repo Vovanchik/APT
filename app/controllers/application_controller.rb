@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user_session
 
   before_filter :find_menu_data
+
+  NUMBER_ITEMS_PER_PAGE = 10
   
   private
 
