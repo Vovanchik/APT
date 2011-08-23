@@ -52,8 +52,8 @@ class ApplicationController < ActionController::Base
   end
 
   def find_menu_data
-    @forum_free = Forum.find_by_name(:free)
-    @forum_private = Forum.find_by_name(:private)
+    @forum_free = Forum.find_by_name('Free')
+    @forum_private = Forum.find_by_name('Private')
     @users_all = User.find(:all)
   end
 
