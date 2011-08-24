@@ -1,15 +1,5 @@
 <body>
 
-  <div >
-  <% flash.each do |type, messages| %>
-    <%  messages.each do |message|%>
-      <div id="<%= type %>">
-        <p><%= message%></p>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-
 <h1>My Action Points</h1>
 
 <table class="apttable" >
