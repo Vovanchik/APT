@@ -12,10 +12,15 @@ class Ability
       can :update, User do |resource|
         resource == user
       end
-      can :read, Forum
-      can [:create, :destroy, :read],  Job
-      can :update, Job do |job|
+      can :read, Forum do |forum|
+        forum.users.include?(user)
+      end
+      can [:create, :destroy],  Job
+      can [:update], Job do |job|
         job.handlers.include?(user) || job.author == user
+      end
+      can [:read], Job do |job|
+        job.handlers.include?(user) || job.author == user || job.forum.users.include?(user)
       end
 
       cannot :add_users_to_forum
