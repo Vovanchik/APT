@@ -38,7 +38,13 @@
 
 <table class="controls">
   <tr>
-    <td><%= button_to 'Edit', edit_job_path, :method => :get %></td>
-    <td><%= button_to 'Back', forum_path(@forum), :method => :get %></td>
+    <%if can? :read, @forum%>
+      <td><%= button_to 'Edit', edit_forum_job_path(@forum), :method => :get %></td>
+      <td><%= button_to 'Back', forum_path(@forum), :method => :get %></td>
+    <%end%>
+    <%if cannot? :read, @forum%>
+      <td><%= link_to 'Back', jobs_path(:type => 'reported_bugs')%>
+      </td>
+    <%end%>
   </tr>
 </table>

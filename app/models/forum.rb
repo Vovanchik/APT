@@ -18,4 +18,7 @@ class Forum < ActiveRecord::Base
     self.name == 'Private'
   end
 
+  def apt_bugs?
+    self.name == 'APT_BUGS'
+  end
 end

@@ -2,6 +2,11 @@ APT::Application.routes.draw do
  
   resources :conclusions, :forums, :jobs, :roles, :users, :user_sessions
 
+  resources :forums do
+    resources :jobs
+  end
+
+
   match 'login' => 'user_sessions#new',       :as => :login
   match 'logout' => 'user_sessions#destroy',  :as => :logout
 

@@ -54,10 +54,16 @@ class ApplicationController < ActionController::Base
   def find_menu_data
     @forum_free = Forum.find_by_name('Free')
     @forum_private = Forum.find_by_name('Private')
+    @forum_apt_bugs = Forum.find_by_name('APT_BUGS')
     @users_all = User.find(:all)
   end
+  
+  def get_forum
+    @forum = Forum.find(params[:forum_id]) if params[:forum_id]
+  end
 
- rescue_from CanCan::AccessDenied do |exception|
+#=begin
+  rescue_from CanCan::AccessDenied do |exception|
     if current_user.nil?
       redirect_to :login
     else
@@ -65,5 +71,6 @@ class ApplicationController < ActionController::Base
       redirect_to root_url
     end
   end
-
+#=end
+  
 end

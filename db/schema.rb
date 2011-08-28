@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110819134608) do
+ActiveRecord::Schema.define(:version => 20110828081259) do
 
   create_table "conclusions", :force => true do |t|
     t.integer  "job_id"
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(:version => 20110819134608) do
     t.integer  "author_id"
     t.integer  "forum_id"
     t.integer  "job_number"
-    t.string   "description"
-    t.string   "status",         :default => "not_started"
+    t.text     "description"
+    t.string   "status",         :default => "open"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "due_date"
