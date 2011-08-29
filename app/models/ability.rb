@@ -9,6 +9,7 @@ class Ability
       can :add_users_to_forum
       can :manage, :all
     elsif user.role? :user
+      cannot [:create, :destroy, :read], User
       can :update, User do |resource|
         resource == user
       end
