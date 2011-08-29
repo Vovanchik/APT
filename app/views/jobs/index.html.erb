@@ -1,6 +1,6 @@
 <body>
 
-<h1>My Action Points</h1>
+<h1><%= @type %></h1>
 
 <table class="apttable" >
   <tr>
@@ -16,15 +16,21 @@
 
 <% @jobs.each do |job| %>
   <tr>
-    <td><%= link_to job.id , job_path(job) %></td>
+    <td><%= link_to job.id , forum_job_path(job.forum,job) %></td>
     <td><%= job.description %></td>
     <td>
       <%job.handlers. each do |handler|%>
         <%=handler.nick%>
       <%end %>
     </td>
-    <td><%=link_to job.forum.name, job.forum %></td>
-    <td><%=job.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+    <%unless job.forum.apt_bugs?%>
+      <td><%= link_to job.forum.name, job.forum %></td>
+    <%end%>
+    <%if job.forum.apt_bugs?%>
+      <td><%= job.forum.name%></td>
+    <%end%>
+
+    <td><%= job.created_at.strftime("%d.%m.%Y %H:%M") %></td>
     <td><%= job.status %></td>
     <td><%= job.author.nick %></td>
 
@@ -37,9 +43,14 @@
 &nbsp;
 
 <table class="controls">
- <tr>
-   <td><%= button_to('New action point' , new_job_path, :method => :get) %> </td>
- </tr>
+  <tr>
+    <%if can? :read, @forum%>
+      <td><%= button_to('New action point' , new_job_path, :method => :get) %> </td>
+    <%end%>
+  </tr>
+</table>
+
+</body>
 </table>
 
 </body>

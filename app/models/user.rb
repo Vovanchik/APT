@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def developer?
+      return self.nick.eql?('xaku') || self.nick.eql?('xvko')
+  end
+
   def admin?
     return self.nick == 'admin'
   end

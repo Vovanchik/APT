@@ -3,7 +3,7 @@
   <p id="notice"><%= notice %></p>
 <p>
   
-<h1> <%= @forum.name %> </h1>
+<h1> <%= @forum.name %></h1>
 </p>
 <table class="apttable" >
   <tr>
@@ -18,7 +18,7 @@
 
 <% @jobs.each do |job| %>
   <tr>
-    <td><%= link_to job.id , job_path(job) %></td>
+    <td><%= link_to job.id , forum_job_path(@forum,job) %></td>
     <td><%= job.description %></td>
     <td>
     <%job.handlers. each do |handler|%>
@@ -41,7 +41,7 @@
 
 <table class="controls">
  <tr>
-   <td><%= button_to('New action point' , new_job_path, :method => :get) %> </td>
+   <td><%= button_to('New action point' , new_forum_job_path(@forum), :method => :get) %> </td>
  </tr>
 </table>
 

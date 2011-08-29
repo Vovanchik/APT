@@ -13,13 +13,24 @@ class Ability
       can :update, User do |resource|
         resource == user
       end
-      can :read, Forum
-      can [:create, :destroy, :read],  Job
-      can :update, Job do |job|
-        job.handlers.include?(user) || job.author == user
+
+      can :read, Forum do |forum|
+        forum.users.include?(user)
       end
 
-      cannot :add_users_to_forum
+      can :create,  Job
+
+      can [:update], Job do |job|
+        (job.handlers.include?(user) || job.author == user) && !job.forum.apt_bugs?
+      end
+
+      can [:update], Job do |job|
+        job.forum.apt_bugs? && user.developer?
+      end
+
+      can [:read], Job do |job|
+        job.handlers.include?(user) || job.author == user || job.forum.users.include?(user)
+      end
     end
   end
 end

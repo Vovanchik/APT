@@ -16,7 +16,7 @@
      <%if current_user.role? :super_user%>
         <%=  "Greetings Master" %>
       <%else%>
-          <%=  "Hello #{current_user.name == "" ? current_user.nick : current_user.name}." %>
+        <%=  "Hello #{current_user.name == "" ? current_user.nick : current_user.name}." %>
       <%end%>
     </th>
     <td><%= button_to "Edit Profile", edit_user_path(current_user.id), :method => :get%></td>
@@ -40,7 +40,7 @@
     <li><%= link_to'Add User', new_user_path%></li>
     <li><%= link_to'Users', users_path%></li>
   <%end%>
-  <li><%= link_to'New AP' , new_job_path%></li>
+  <li><%= link_to'New AP' , new_job_path(:type => 'new_ap')%></li>
   <li><%= link_to'My AP', jobs_path(:type => 'assigned_to_me'),%></li>
   <li><%= link_to'AP assigned by me', jobs_path(:type => 'assigned_by_me'),%></li>
   <li><%= link_to'Free AP', @forum_free%></li>
@@ -49,6 +49,10 @@
     <li><%= link_to'New Forum', new_forum_path%></li>
   <%end%>
   <li><%= link_to'Forums', forums_path%></li>
+  <%if @forum_apt_bugs%>
+      <li><%= link_to "Report bug", new_forum_job_path(@forum_apt_bugs)%></li>
+      <li><%= link_to "Show my bugs", jobs_path(:type => 'reported_bugs')%></li>
+  <%end%>
  </ul>
 </div>  
 <%end %>
