@@ -1,11 +1,16 @@
 <body>
+<div id="container">
+  <%if can? :add_users_to_forum, @forum%>
+   <%= render 'show_handlers' %>
+  <%end%>
 
-<%if can? :add_users_to_forum, @forum%>
-  <%= render 'show_handlers' %>
-<%end%>
+  <%if cannot? :add_users_to_forum, @forum%>
+    <%= render 'show_jobs' %>
+  <%end%>
 
-<%if cannot? :add_users_to_forum, @forum%>
-  <%= render 'show_jobs' %>
-<%end%>
+  
+  <div id="clearfooter"></div>
+</div>
+<div id="footer"> APT Tracker </div>
 
 </body>

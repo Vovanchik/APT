@@ -89,3 +89,38 @@ a img{
         background-repeat: no-repeat;
 
 }
+
+#container {
+min-height: 100%;
+background-color: antiquewhite;
+width: 100%;
+margin: 0 auto;
+}
+
+#clearfooter {
+height: 20px;
+}
+
+#footer {
+width: 100%;
+background-color: burlywood;
+border: 1px solid #bebebe;
+color: #000;
+text-align: center;
+height: 20px;
+padding-top: 0px;
+margin: auto auto 10px auto;
+
+}
+
+#header {
+width: 100%;
+background-color: burlywood;
+border: 1px solid #bebebe;
+color: #000;
+text-align: center;
+height: 40px;
+padding-bottom: 0px;
+margin: auto auto 10px auto;
+
+}

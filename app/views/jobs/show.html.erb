@@ -1,3 +1,5 @@
+
+<div id="container">
 <p id="notice"><%= notice %></p>
 
 <table class="apttable">
@@ -43,8 +45,11 @@
       <td><%= button_to 'Back', forum_path(@forum), :method => :get %></td>
     <%end%>
     <%if cannot? :read, @forum%>
-      <td><%= link_to 'Back', jobs_path(:type => 'reported_bugs')%>
+      <td><%= link_to 'Back', {:action => "index",:type => 'reported_bugs'}, :method => :get %>
       </td>
     <%end%>
   </tr>
 </table>
+
+</div>
+<div id="footer"> APT Tracker </div>

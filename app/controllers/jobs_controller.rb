@@ -5,14 +5,18 @@ class JobsController < ApplicationController
 
   # GET /jobs
   # GET /jobs.xml
+
   def index
+
     case params[:type]
     when 'assigned_by_me'
       @jobs = Job.find_all_by_assigned_by_id(current_user.id).paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
       @type = "Assigned by me AP"
+
     when 'reported_bugs'
       @jobs = Job.find(:all, :conditions => ["author_id = ? AND forum_id = ?" , current_user.id, @forum_apt_bugs.id]).paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
       @type = "Reported bugs by me"
+ 
     else #assigned_to_me
       @jobs = current_user.jobs.paginate(:page => params[:page], :per_page => NUMBER_ITEMS_PER_PAGE)
       @type = "My Action Points"

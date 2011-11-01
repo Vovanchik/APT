@@ -1,9 +1,15 @@
 <body>
-  <h1>Editing forum</h1>
+<div id="container">
+ <h1>Editing forum</h1>
 
     <%= render 'form' %>
 
     <%= button_to 'Show', @forum, :method => :get %>
     <p> </p>
     <%= button_to 'Back', forums_path, :method => :get %>
+
+  <div id="clearfooter"></div>
+</div>
+<div id="footer"> APT Tracker </div>
+
 </body>
